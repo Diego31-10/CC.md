@@ -86,7 +86,21 @@ cmd_init() {
     cp "$template" "${memory_dir}/${filename}"
   done
 
-  # 3. Copiar CLAUDE.md al proyecto (sin sobrescribir si ya existe)
+  # 3. Crear settings.json del proyecto con autoMemoryDirectory
+  local settings_file="${CW_GLOBAL_DIR}/projects/${project_hash}/settings.json"
+  if [[ ! -f "$settings_file" ]]; then
+    cat > "$settings_file" <<EOF
+{
+  "autoMemoryEnabled": true,
+  "autoMemoryDirectory": "~/.claude/projects/${project_hash}/memory"
+}
+EOF
+    success "settings.json creado para el proyecto"
+  else
+    info "  settings.json ya existe — no se sobrescribió."
+  fi
+
+  # 4. Copiar CLAUDE.md al proyecto (sin sobrescribir si ya existe)
   local claude_template="${CW_REPO_DIR}/templates/CLAUDE.md"
   local claude_dest
   claude_dest="$(pwd)/CLAUDE.md"
@@ -182,6 +196,15 @@ cmd_update() {
   echo ""
 }
 
+# ─── Subcomando: onboard ─────────────────────────────────────────
+cmd_onboard() {
+  local onboard_script="${CW_REPO_DIR}/install.sh"
+  if [[ ! -f "$onboard_script" ]]; then
+    error "No se encontró install.sh en ${CW_REPO_DIR}. Ejecuta: curl -fsSL https://raw.githubusercontent.com/Diego31-10/claude-workflow/main/install.sh | bash"
+  fi
+  bash "$onboard_script"
+}
+
 # ─── Subcomando: help ─────────────────────────────────────────────
 cmd_help() {
   echo ""
@@ -189,22 +212,21 @@ cmd_help() {
   echo ""
   echo "  Comandos:"
   echo "    cw init      Inicializa memoria Claude para el proyecto actual"
+  echo "    cw onboard   Re-ejecuta el onboarding interactivo"
   echo "    cw status    Muestra estado de memoria global y del proyecto"
   echo "    cw update    Actualiza templates desde GitHub"
   echo "    cw help      Muestra esta ayuda"
-  echo ""
-  echo "  Setup inicial (nueva PC):"
-  echo "    curl -fsSL https://raw.githubusercontent.com/Diego31-10/claude-workflow/main/install.sh | bash"
   echo ""
 }
 
 # ─── Router ───────────────────────────────────────────────────────
 case "${1:-help}" in
-  init)   cmd_init ;;
-  status) cmd_status ;;
-  update) cmd_update ;;
+  init)    cmd_init ;;
+  status)  cmd_status ;;
+  update)  cmd_update ;;
+  onboard) cmd_onboard ;;
   help|--help|-h) cmd_help ;;
   *)
-    error "Comando desconocido: '${1}'. Usa 'cw help' para ver comandos disponibles."
+    error "Comando desconocido: '${1}'. Usa 'cw help'."
     ;;
 esac
