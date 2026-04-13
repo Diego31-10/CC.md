@@ -1,5 +1,5 @@
 {
-  "name": "@diego31-10/claude-workflow",
+  "name": "@diego31/claude-workflow",
   "version": "2.0.0",
   "description": "Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.",
   "type": "module",
