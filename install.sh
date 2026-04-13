@@ -92,40 +92,47 @@ install_cw_command() {
 
   # Intentar symlink, si falla copiar
   if ln -s "${INSTALL_DIR}/cw.sh" "$cw_link" 2>/dev/null; then
-    success "Comando 'cw' instalado (symlink) en ${BIN_DIR}"
+    success "Comando 'cw' instalado (symlink) en ~/.local/bin/"
   else
     cp "${INSTALL_DIR}/cw.sh" "$cw_link"
-    warn "Symlink falló — se copió cw.sh directamente. Corre 'cw update' tras actualizar el repo."
+    warn "Symlink no disponible — se copió cw.sh directamente"
   fi
   chmod +x "${INSTALL_DIR}/cw.sh" 2>/dev/null || true
 
   # En Windows: crear cw.bat para PowerShell/CMD
   if [[ "$OS" == "windows" ]]; then
     local bat_path="${BIN_DIR}/cw.bat"
-    # cygpath convierte /home/user/.claude-workflow a ruta Windows
     local win_script
     win_script="$(cygpath -w "${INSTALL_DIR}/cw.sh" 2>/dev/null || echo "${INSTALL_DIR}/cw.sh")"
     printf '@echo off\r\nbash "%s" %%*\r\n' "$win_script" > "$bat_path"
     success "Wrapper cw.bat creado para PowerShell/CMD"
   fi
 
-  # Agregar BIN_DIR al PATH del shell si no está
+  # Agregar BIN_DIR al PATH de shells Unix
   add_to_path "${HOME}/.bashrc"
   add_to_path "${HOME}/.bash_profile"
   [[ -f "${HOME}/.zshrc" ]] && add_to_path "${HOME}/.zshrc"
 
-  # En Windows: agregar al PATH de Windows vía PowerShell
+  # En Windows: agregar al PATH del sistema (permanente)
   if [[ "$OS" == "windows" ]]; then
     local win_bin
     win_bin="$(cygpath -w "$BIN_DIR" 2>/dev/null || echo "$BIN_DIR")"
-    powershell.exe -Command "
-      \$current = [Environment]::GetEnvironmentVariable('PATH','User')
-      if (\$current -notlike '*${win_bin}*') {
-        [Environment]::SetEnvironmentVariable('PATH', \$current + ';${win_bin}', 'User')
-        Write-Host 'PATH de Windows actualizado'
+
+    # Intentar agregar al PATH via Registry (PowerShell como admin no requerido si es User PATH)
+    if powershell.exe -NoProfile -Command "
+      \$bin = '${win_bin}'
+      \$current = [Environment]::GetEnvironmentVariable('PATH', 'User')
+      if (\$current -notlike \"*\${bin}*\") {
+        [Environment]::SetEnvironmentVariable('PATH', \$current + ';' + \$bin, 'User')
+        exit 0
       }
-    " 2>/dev/null && success "PATH de Windows actualizado para PowerShell" || \
-      warn "No se pudo actualizar PATH de Windows. Agrega ${win_bin} manualmente."
+      exit 1
+    " 2>/dev/null; then
+      success "PATH agregado a Windows (abre una terminal nueva para que funcione)"
+    else
+      warn "No se pudo actualizar PATH. Reinicia la terminal o agrega manualmente:"
+      warn "  Ruta: ${win_bin}"
+    fi
   fi
 }
 
@@ -163,34 +170,30 @@ else
   success "Repo clonado"
 fi
 
-# ─── 2. Memoria global ────────────────────────────────────────────
-header "2/5  Memoria global (~/.claude/)"
-echo "  Instala CLAUDE.md y perfiles en ~/.claude/"
-echo "  Aplica a TODOS tus proyectos con Claude Code."
+# ─── 2. CLAUDE.md global ──────────────────────────────────────────
+header "2/4  CLAUDE.md global (~/.claude/CLAUDE.md)"
+echo "  Configura tus reglas personales para Claude Code."
+echo "  Aplica a TODOS tus proyectos."
 echo ""
 
 SETUP_GLOBAL=false
-if confirm "¿Configurar memoria global?" "y"; then
+if confirm "¿Configurar CLAUDE.md global?" "y"; then
   SETUP_GLOBAL=true
-  mkdir -p "${CLAUDE_DIR}/memory"
+  mkdir -p "${CLAUDE_DIR}"
   copy_if_needed "${INSTALL_DIR}/global/CLAUDE.md" "${CLAUDE_DIR}/CLAUDE.md"
-  for f in "${INSTALL_DIR}/global/memory/"*.md; do
-    copy_if_needed "$f" "${CLAUDE_DIR}/memory/$(basename "$f")"
-  done
-  success "Memoria global lista"
+  success "CLAUDE.md global lista"
 else
-  info "Memoria global omitida"
+  info "CLAUDE.md global omitida"
 fi
 
-# ─── 3. Memoria de proyecto ───────────────────────────────────────
-header "3/5  Memoria de proyecto"
-echo "  Crea archivos de memoria para un proyecto específico."
-echo "  Se guardará en ~/.claude/projects/<hash>/memory/"
+# ─── 3. Configurar proyecto ───────────────────────────────────────
+header "3/4  Configurar proyecto"
+echo "  Crea CLAUDE.md en el proyecto + memoria en ~/.claude/projects/"
 echo ""
 
 SETUP_PROJECT=false
 PROJECT_PATH=""
-if confirm "¿Configurar memoria para un proyecto?" "y"; then
+if confirm "¿Configurar un proyecto?" "y"; then
   SETUP_PROJECT=true
 
   while true; do
@@ -209,32 +212,29 @@ if confirm "¿Configurar memoria para un proyecto?" "y"; then
 
   PROJECT_HASH="$(compute_hash_for_path "$PROJECT_PATH")"
   PROJECT_MEM_DIR="${CLAUDE_DIR}/projects/${PROJECT_HASH}/memory"
+  info "  Ruta: ${PROJECT_PATH}"
   info "  Hash: ${PROJECT_HASH}"
-  info "  Memoria: ${PROJECT_MEM_DIR}"
+  info "  Memory dir: ${PROJECT_MEM_DIR}"
 fi
 
-# ─── 4. Elegir template ───────────────────────────────────────────
+# ─── 4. Crear CLAUDE.md del proyecto + memory ──────────────────────
 if [[ "$SETUP_PROJECT" == "true" ]]; then
-  header "4/5  Template de memoria"
-  echo "  1) Full   — tech_architecture + project_state + errors (recomendado)"
-  echo "  2) Minimal — solo project_state"
-  echo ""
-  ask "Elige template [1/2] (default: 1): "
-  read -r tmpl_choice
-  tmpl_choice="${tmpl_choice:-1}"
+  # CLAUDE.md en el proyecto
+  claude_dest="${PROJECT_PATH}/CLAUDE.md"
+  if [[ -f "$claude_dest" ]]; then
+    warn "  CLAUDE.md ya existe en ${PROJECT_PATH} — sin cambios"
+  else
+    cp "${INSTALL_DIR}/templates/CLAUDE.md" "$claude_dest"
+    success "CLAUDE.md creado en ${PROJECT_PATH}"
+  fi
 
+  # Memory dir
   mkdir -p "$PROJECT_MEM_DIR"
 
-  case "$tmpl_choice" in
-    2)
-      copy_if_needed "${INSTALL_DIR}/templates/memory/project_state.md" "${PROJECT_MEM_DIR}/project_state.md"
-      ;;
-    *)
-      for f in "${INSTALL_DIR}/templates/memory/"*.md; do
-        copy_if_needed "$f" "${PROJECT_MEM_DIR}/$(basename "$f")"
-      done
-      ;;
-  esac
+  # Copiar todos los templates de memory
+  for f in "${INSTALL_DIR}/templates/memory/"*.md; do
+    copy_if_needed "$f" "${PROJECT_MEM_DIR}/$(basename "$f")"
+  done
 
   # settings.json del proyecto
   local_settings="${CLAUDE_DIR}/projects/${PROJECT_HASH}/settings.json"
@@ -245,48 +245,39 @@ if [[ "$SETUP_PROJECT" == "true" ]]; then
   "autoMemoryDirectory": "~/.claude/projects/${PROJECT_HASH}/memory"
 }
 EOF
-    success "settings.json creado para el proyecto"
+    success "settings.json creado"
   else
-    info "  settings.json ya existe — sin cambios"
+    info "  settings.json ya existe"
   fi
 
-  # CLAUDE.md en el proyecto
-  claude_dest="${PROJECT_PATH}/CLAUDE.md"
-  if [[ -f "$claude_dest" ]]; then
-    warn "CLAUDE.md ya existe en ${PROJECT_PATH} — sin cambios"
-  else
-    cp "${INSTALL_DIR}/templates/CLAUDE.md" "$claude_dest"
-    success "CLAUDE.md creado en ${PROJECT_PATH}"
-  fi
-
-  success "Memoria del proyecto lista"
-else
-  header "4/5  Template"
-  info "Omitido (no se configuró proyecto)"
+  success "Proyecto configurado"
 fi
 
-# ─── 5. Instalar comando cw ───────────────────────────────────────
-header "5/5  Comando cw"
+# ─── 4. Instalar comando cw ───────────────────────────────────────
+header "4/4  Instalación del comando cw"
 install_cw_command
 
 # ─── Resumen ──────────────────────────────────────────────────────
 echo ""
 echo "  ─────────────────────────────────────────────"
-success "Onboarding completo."
-echo ""
-echo "  Para usar 'cw' en esta sesión:"
-echo "    export PATH=\"\$HOME/.local/bin:\$PATH\""
+success "Instalación completa."
 echo ""
 if [[ "$SETUP_GLOBAL" == "true" ]]; then
-  echo "  Memoria global:"
-  echo "    Edita ~/.claude/memory/user_profile.md con tu info"
+  echo "  ✓ CLAUDE.md global instalado en:"
+  echo "    ~/.claude/CLAUDE.md"
 fi
 if [[ "$SETUP_PROJECT" == "true" ]]; then
-  echo "  Proyecto: ${PROJECT_PATH}"
-  echo "    Edita ${PROJECT_MEM_DIR}/tech_architecture.md con tu stack"
+  echo "  ✓ Proyecto configurado:"
+  echo "    CLAUDE.md en: ${PROJECT_PATH}"
+  echo "    Memory en:    ~/.claude/projects/${PROJECT_HASH}/memory/"
 fi
 echo ""
-echo "  Próximos proyectos:"
+echo "  Próximos pasos:"
+echo "    1. Abre una terminal NUEVA"
+echo "    2. Corre: cw help"
+echo "    3. Abre Claude Code en tu proyecto"
+echo ""
+echo "  Para otros proyectos:"
 echo "    cd mi-proyecto && cw init"
 echo "  ─────────────────────────────────────────────"
 echo ""

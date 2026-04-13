@@ -1,6 +1,6 @@
 # claude-workflow
 
-Sistema de memoria y workflows para Claude Code. Onboarding interactivo en 2 minutos.
+Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.
 
 ## Setup (nueva PC)
 
@@ -8,40 +8,65 @@ Sistema de memoria y workflows para Claude Code. Onboarding interactivo en 2 min
 curl -fsSL https://raw.githubusercontent.com/Diego31-10/claude-workflow/main/install.sh | bash
 ```
 
-El onboarding te pregunta qué configurar:
-- ✓ Memoria global (`~/.claude/`) — aplica a todos tus proyectos
-- ✓ Memoria de proyecto — indicas la ruta, se configura automáticamente
-- ✓ Template de memoria (full o minimal)
-- ✓ Comando `cw` instalado al final
+El installer te pregunta qué configurar:
+- ✓ **CLAUDE.md global** (`~/.claude/CLAUDE.md`) — reglas personales para todos tus proyectos
+- ✓ **Proyecto** — crea CLAUDE.md en la carpeta + memory en `~/.claude/projects/<hash>/`
+- ✓ **Comando `cw`** — instalado y agregado al PATH automáticamente
+
+## Flujo
+
+```
+curl | bash
+  ↓
+¿Configurar CLAUDE.md global? → [y/n]
+  ↓
+¿Configurar un proyecto? → [y/n] → da ruta
+  ↓
+✓ Listo. Abre una terminal NUEVA y: cw help
+```
 
 ## Comandos disponibles
 
 | Comando | Qué hace |
 |---------|----------|
-| `cw init` | Inicializa memoria Claude para el proyecto actual |
+| `cw init` | Inicializa memoria para un proyecto (desde dentro del proyecto) |
 | `cw onboard` | Re-ejecuta el onboarding interactivo |
-| `cw status` | Muestra estado de memoria global y del proyecto |
-| `cw update` | Actualiza templates desde GitHub |
-| `cw help` | Muestra esta ayuda |
+| `cw status` | Muestra estado actual |
+| `cw update` | Actualiza desde GitHub |
+| `cw help` | Muestra ayuda |
 
 ## Compatibilidad
 
 | Shell | Funciona |
 |-------|----------|
-| Bash (Linux/Mac) | ✓ |
 | Git Bash (Windows) | ✓ |
 | PowerShell (Windows) | ✓ (via cw.bat) |
 | CMD (Windows) | ✓ (via cw.bat) |
+| Bash (Linux/Mac) | ✓ |
+| Zsh (Mac) | ✓ |
 
-## Estructura instalada
+## Estructura después del setup
 
-**Global** (`~/.claude/`):
-- `CLAUDE.md` — Config personal cross-project
-- `memory/user_profile.md` — Tu perfil como dev
-- `memory/feedback.md` — Reglas de comportamiento Claude
-- `memory/superpowers_workflows.md` — Workflows feature/bug/cleanup
+```
+~/.claude/
+├── CLAUDE.md (tu config personal)
+└── projects/
+    └── <hash-del-proyecto>/
+        └── memory/
+            ├── tech_architecture.md
+            ├── project_state.md
+            └── errors.md
 
-**Por proyecto** (`~/.claude/projects/<hash>/memory/`):
-- `tech_architecture.md` — Stack, BD, patrones
-- `project_state.md` — Tareas, roadmap
-- `errors.md` — Bugs resueltos y prevención
+mi-proyecto/
+└── CLAUDE.md (config del proyecto)
+```
+
+## Solución de problemas
+
+**`cw help` no funciona:**
+- Abre una **terminal NUEVA** (el PATH se actualiza al abrir)
+- Si aún no funciona en PowerShell, reinicia la PC
+
+**Symlink no funcionó:**
+- El script usa fallback a copia, funciona igual
+- Corre `cw update` cuando actualices el repo
