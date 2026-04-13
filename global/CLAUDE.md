@@ -1,46 +1,27 @@
-# CLAUDE.md
+# CLAUDE.md (Global)
 
-Config de trabajo para Claude Code. Todo se basa en memoria.
+General behavior rules and user identity for Claude Code.
 
-**Memoria global**: Lee `~/.claude/memory/MEMORY.md` — índice de contexto personal.
-**Memoria proyecto**: Lee `memory/MEMORY.md` del proyecto actual — contexto técnico.
-**Evolución**: Actualiza proactivamente la memoria cada sesión. ESO ES CLAVE.
-**Context**: Referencia archivo leído en lugar de releer (ahorro de tokens).
+## Identity & Preferences
+- **Developer**: Individual developer, working solo.
+- **Tone**: Concise, direct, no filler/formalism.
+- **Workflow**: No PRs, issues, or formal reviews needed unless requested.
+- **Editing**: Surgical section edits over full file rewrites.
 
----
+## Session Protocols (MANDATORY)
+- **Start**: Read `project/CLAUDE.md` and `project/memory/project_state.md` to sync context.
+- **During**: If a bug is fixed or a success pattern is found, update `learnings.md`.
+- **End**: Update `project_state.md` with progress and what's next.
 
-## Principios
+## Code Standards
+- ❌ No `any` in TypeScript.
+- ❌ No `.env`, tokens, or secrets in commits.
+- **Minimalism**: No comments for unchanged code; no speculative abstractions.
+- **Commits**: Group semantic changes; clear, "why-focused" messages.
 
-- Lee antes de escribir
-- Edita secciones, no archivos completos
-- Valida antes de finalizar
-- Sin formalismo
-- Siempre con foco en memory
-- Usuario > CLAUDE.md
-
----
-
-## Reglas No-Negociables
-
-- ❌ `.env` o tokens en commits
-- ❌ `any` en TypeScript
-- Nunca crear archivos nuevos en `docs/` sin pedido explícito
-- Nunca crear nuevos memory files sin pedido explícito — actualizar existing siempre
+## Memory & Evolution (KEY)
+- **Philosophy**: Memory is the source of truth. Document everything to prevent forgetting.
+- **Proactivity**: Update project memory files *immediately* after a change or discovery.
 
 ---
-
-## Proactividad en Memory (CLAVE)
-
-**Cada sesión, actualiza proactivamente**:
-
-- `errors.md` — Cuando encuentres error: causa + solución + prevención
-- `tech_architecture.md` — Si descubres patrón nuevo: agrégalo
-- `superpowers_workflows.md` — Si descubres workflow útil nuevo
-- `project_state.md` — Si estado de tareas cambia
-- `user_profile.md` — Si aprendes algo nuevo del usuario
-
-**Resultado**: Próxima sesión Claude es más inteligente. Memoria evoluciona, no estanca.
-
----
-
-**Versión**: 1.0 (Agnóstico, cross-project)
+**Version**: 1.3 (Global Protocols)
