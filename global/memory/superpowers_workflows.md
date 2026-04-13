@@ -1,6 +1,6 @@
 ---
 name: Superpowers Workflows
-description: Workflows integrados para feature development, bugs, cleanup y review
+description: Integrated workflows for feature development, bugs, cleanup and review
 type: reference
 ---
 
@@ -9,55 +9,55 @@ type: reference
 ## Feature Development
 
 ```
-/brainstorm → Explora intent, requirements, design
+/brainstorm → Explore intent, requirements, design
   ↓
-/write-plan → Estructura clara, tasks atómicas
+/write-plan → Clear structure, atomic tasks
   ↓
-git worktree add → Aislamiento
+git worktree add → Isolation
   ↓
-/subagent-driven-development → Ejecuta (Haiku/Sonnet optimizado)
+/subagent-driven-development → Execute (Haiku/Sonnet optimized)
   ↓
 /verification → Grep + tsc + eslint
   ↓
-Cherry-pick a main
+Cherry-pick to main
   ↓
-/requesting-code-review → Validación
+/requesting-code-review → Validation
   ↓
-/finishing-branch → Decisión merge
+/finishing-branch → Merge decision
 ```
 
-**Tokens**: 40% ahorro (Haiku mecánica, Sonnet lógica)
+**Tokens**: 40% savings (Haiku mechanics, Sonnet logic)
 
 ---
 
 ## Bug Fixing
 
 ```
-/systematic-debugging → Diagnosticar causa raíz
+/systematic-debugging → Diagnose root cause
   ↓
-Fix en worktree
+Fix in worktree
   ↓
-/verification → Confirmar arreglado
+/verification → Confirm fixed
   ↓
 PR → Merge
 ```
 
-**Clave**: Documentar causa en errors.md
+**Key**: Document cause in errors.md
 
 ---
 
 ## Batch Cleanup (Refactoring)
 
 ```
-/write-plan → Divide en tasks
+/write-plan → Divide into tasks
   ↓
-git worktree add → Aislamiento
+git worktree add → Isolation
   ↓
-/subagent-driven-development → Haiku (mecánica) + Sonnet (batch complex)
+/subagent-driven-development → Haiku (mechanics) + Sonnet (complex batch)
   ↓
-/verification → Validación completa
+/verification → Full validation
   ↓
-Cherry-pick → Sincronizar a main
+Cherry-pick → Sync to main
 ```
 
 ---
@@ -65,12 +65,12 @@ Cherry-pick → Sincronizar a main
 ## Code Review
 
 ```
-Feature completada
+Feature completed
   ↓
-/requesting-code-review → Validación spec + quality
+/requesting-code-review → Spec + quality validation
   ↓
-Issues encontrados?
-  ├─ Sí → Fix + re-review
+Issues found?
+  ├─ Yes → Fix + re-review
   └─ No → /finishing-branch → Merge
 ```
 
@@ -78,16 +78,16 @@ Issues encontrados?
 
 ## Model Optimization
 
-| Tarea | Modelo | Razón |
-|-------|--------|-------|
-| ESLint, TypeScript | Haiku | Mecánica pura |
+| Task | Model | Reason |
+|------|-------|--------|
+| ESLint, TypeScript | Haiku | Pure mechanics |
 | Docs generation | Haiku | Copy writing |
-| Batch cleanup | Sonnet | Análisis + contexto |
-| Feature impl | Sonnet | Lógica compleja |
-| Architecture | Sonnet | Decisiones |
+| Batch cleanup | Sonnet | Analysis + context |
+| Feature impl | Sonnet | Complex logic |
+| Architecture | Sonnet | Decisions |
 
-**Regla**: Si es mecánica → Haiku. Si requiere análisis → Sonnet.
+**Rule**: If mechanics → Haiku. If analysis required → Sonnet.
 
 ---
 
-**Last Updated**: (actualizar cada sesión)
+**Last Updated**: (update each session)

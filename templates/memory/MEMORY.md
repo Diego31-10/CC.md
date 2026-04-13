@@ -4,12 +4,12 @@
 
 ## Core References
 
-- [tech_architecture.md](tech_architecture.md) — Stack, BD, estructura, patrones del proyecto
-- [project_state.md](project_state.md) — Tareas, completado, pendiente
-- [errors.md](errors.md) — Bugs resueltos, causas, soluciones, prevención
+- [tech_architecture.md](tech_architecture.md) — Stack, database, structure, project patterns
+- [project_state.md](project_state.md) — Tasks, completed, pending
+- [errors.md](errors.md) — Resolved bugs, causes, solutions, prevention
 
 ---
 
-**Filosofía**: Sin redundancia. Memory = fuente de verdad. Actualizar proactivamente cada sesión.
+**Philosophy**: No redundancy. Memory = source of truth. Update proactively each session.
 
-**Última actualización**: (actualizar cada sesión)
+**Last Updated**: (update each session)

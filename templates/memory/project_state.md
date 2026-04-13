@@ -1,43 +1,43 @@
 ---
-name: Estado del Proyecto
-description: Qué está completado y qué falta — fuente de verdad para tareas
+name: Project State
+description: What is completed and what is missing — source of truth for tasks
 type: project
 ---
 
-# [Nombre Proyecto] — Estado
+# [Project Name] — State
 
-**Fase actual**: (describir fase: MVP, pulido, cierre, etc.)
-
----
-
-## ✅ Completado
-
-- (módulo/feature completado)
+**Current phase**: (describe phase: MVP, polish, closing, etc.)
 
 ---
 
-## 🚧 En Progreso
+## ✅ Completed
 
-- (tarea actual)
-
----
-
-## ⏳ Pendiente
-
-- (tarea futura)
+- (completed module/feature)
 
 ---
 
-## ❌ Bloqueado
+## 🚧 In Progress
 
-- (tarea bloqueada) — **Bloqueado por**: (razón)
-
----
-
-## ❌ Fuera del Plan
-
-- (feature descartado)
+- (current task)
 
 ---
 
-**Última actualización**: (fecha)
+## ⏳ Pending
+
+- (future task)
+
+---
+
+## ❌ Blocked
+
+- (blocked task) — **Blocked by**: (reason)
+
+---
+
+## ❌ Out of Plan
+
+- (discarded feature)
+
+---
+
+**Last Updated**: (date)

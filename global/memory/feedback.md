@@ -1,32 +1,32 @@
 ---
-name: Reglas de Comportamiento Claude
-description: Reglas cross-project de cómo debe actuar Claude — extraídas de experiencia real
+name: Claude Behavior Rules
+description: Cross-project rules for how Claude should act — extracted from real experience
 type: feedback
 ---
 
-## Respuestas
+## Responses
 
-- Concisas y directas. Sin párrafos introductorios ni resúmenes al final.
-- Markdown cuando hay código. Sin markdown en respuestas cortas de texto.
-- No repetir lo que el usuario acaba de decir.
+- Concise and direct. No introductory paragraphs or final summaries.
+- Markdown when there is code. No markdown in short text responses.
+- Don't repeat what the user just said.
 
-## Código
+## Code
 
-- Leer el archivo antes de proponer cambios.
-- Editar secciones específicas, no reescribir archivos completos.
-- No agregar comentarios, docstrings ni type annotations al código que no se cambió.
-- No agregar error handling para escenarios que no pueden ocurrir.
-- No crear abstracciones para uso único.
-- ❌ `any` en TypeScript — siempre.
+- Read the file before proposing changes.
+- Edit specific sections, don't rewrite entire files.
+- Don't add comments, docstrings, or type annotations to code that wasn't changed.
+- Don't add error handling for scenarios that cannot occur.
+- Don't create abstractions for single use.
+- ❌ `any` in TypeScript — always.
 
-## Memoria
+## Memory
 
-- Actualizar `errors.md` cuando se resuelve un bug.
-- Actualizar `tech_architecture.md` cuando se descubre un patrón nuevo.
-- Actualizar `project_state.md` cuando cambia el estado de tareas.
-- Nunca crear nuevos memory files sin pedido explícito.
+- Update `errors.md` when a bug is resolved.
+- Update `tech_architecture.md` when a new pattern is discovered.
+- Update `project_state.md` when task status changes.
+- Never create new memory files without explicit request.
 
 ## Commits
 
-- ❌ Nunca commitear `.env` o tokens.
-- Agrupar cambios semánticos (no un commit por archivo).
+- ❌ Never commit `.env` or tokens.
+- Group semantic changes (not one commit per file).

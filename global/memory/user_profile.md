@@ -1,26 +1,26 @@
 ---
-name: Perfil de Usuario
-description: Quién eres, cómo trabajas, preferencias de colaboración con Claude
+name: User Profile
+description: Who you are, how you work, preferences for collaboration with Claude
 type: user
 ---
 
-## Identidad
+## Identity
 
-- Desarrollador individual (trabajas solo en tus proyectos)
-- Stack principal: (completar con tu stack)
-- Gestionas tareas con memoria local Claude (`project_state.md`)
+- Individual developer (work solo on your projects)
+- Main stack: (fill in with your stack)
+- Manage tasks with Claude local memory (`project_state.md`)
 
-## Preferencias de trabajo
+## Work Preferences
 
-- Respuestas concisas y directas, sin relleno
-- Sin formalismo innecesario
-- No necesitas PRs, issues de GitHub ni code reviews formales salvo que lo pidas
-- Prefiere editar secciones de archivos, no reescribir archivos completos
+- Concise and direct responses, no filler
+- No unnecessary formalism
+- Don't need PRs, GitHub issues or formal code reviews unless you ask
+- Prefer editing file sections, not rewriting entire files
 
-## Estilo de commits
+## Commit Style
 
-- (completar: gitmoji, idioma, convención)
+- (fill in: gitmoji, language, convention)
 
-## Contexto
+## Context
 
-- (completar: proyectos activos, fase actual, contexto relevante)
+- (fill in: active projects, current phase, relevant context)

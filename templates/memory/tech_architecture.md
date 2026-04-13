@@ -1,10 +1,10 @@
 ---
 name: Tech Architecture & Repository Structure
-description: Stack, arquitectura, estructura codebase, flujos técnicos — ÚNICA referencia técnica
+description: Stack, architecture, codebase structure, technical flows — ONLY technical reference
 type: reference
 ---
 
-# [Nombre Proyecto] — Tech Architecture
+# [Project Name] — Tech Architecture
 
 ## Tech Stack
 
@@ -31,17 +31,17 @@ type: reference
 ## Repository Structure
 
 ```
-proyecto/
-├── (completar con estructura real)
+project/
+├── (fill in with actual structure)
 ```
 
 ---
 
 ## Architecture Patterns
 
-### (Patrón principal)
+### (Main Pattern)
 ```
-(Describir flujo)
+(Describe flow)
 ```
 
 ---
@@ -52,14 +52,14 @@ proyecto/
 
 | Table | Purpose | RLS/Auth |
 |-------|---------|----------|
-| (tabla) | (propósito) | (política) |
+| (table) | (purpose) | (policy) |
 
 ---
 
 ## Security Rules
 
-- (regla 1)
-- (regla 2)
+- (rule 1)
+- (rule 2)
 
 ---
 
@@ -67,8 +67,8 @@ proyecto/
 
 | File | Lines | Status |
 |------|-------|--------|
-| (archivo) | (líneas) | (estado) |
+| (file) | (lines) | (status) |
 
 ---
 
-**Last Updated**: (fecha)
+**Last Updated**: (date)

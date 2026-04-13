@@ -1,40 +1,40 @@
 ---
 name: Errors & Learnings
-description: Bugs resueltos, causas raíz, soluciones, prevención — evolución cada sesión
+description: Resolved bugs, root causes, solutions, prevention — evolution each session
 type: reference
 ---
 
-## Filosofía
+## Philosophy
 
-Este archivo documenta ERRORES para que cada sesión sea mejor que la anterior:
-- ✅ Qué salió mal (síntoma)
-- ✅ Por qué (causa raíz)
-- ✅ Cómo se arregló (solución)
-- ✅ Cómo evitarlo (prevención)
+This file documents ERRORS so each session is better than the previous:
+- ✅ What went wrong (symptom)
+- ✅ Why (root cause)
+- ✅ How it was fixed (solution)
+- ✅ How to avoid it (prevention)
 
-**Lectura obligatoria** al empezar sesión.
+**Mandatory reading** at session start.
 
 ---
 
-## Formato
+## Format
 
 ```
-## [N]. [Descripción del error]
+## [N]. [Error Description]
 
-**Síntoma**: Qué pasaba  
-**Causa raíz**: Por qué ocurría  
-**Solución**: Qué se cambió  
-**Archivos afectados**: Rutas específicas  
-**Fecha**: Cuándo se resolvió  
-**Prevención**: Cómo evitarlo en futuro
+**Symptom**: What was happening  
+**Root cause**: Why it occurred  
+**Solution**: What was changed  
+**Affected files**: Specific paths  
+**Date**: When it was resolved  
+**Prevention**: How to avoid it in future
 ```
 
 ---
 
-## Patrones Comunes a Evitar
+## Common Patterns to Avoid
 
-(Agregar cuando se acumulen 3+ errores del mismo tipo)
+(Add when 3+ errors of the same type accumulate)
 
 ---
 
-**Última actualización**: (fecha)
+**Last Updated**: (date)
