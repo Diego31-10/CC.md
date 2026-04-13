@@ -1,6 +1,6 @@
 # claude-workflow
 
-Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.
+Sistema de memoria y workflows para Claude Code.
 
 ## Instalación
 
