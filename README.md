@@ -2,10 +2,15 @@
 
 Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.
 
-## Setup (nueva PC)
+## Setup
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Diego31-10/claude-workflow/main/install.sh | bash
+npx diego31-10/claude-workflow
+```
+
+O si lo prefieres desde bash:
+
+```bash
 ```
 
 El installer te pregunta qué configurar:
@@ -16,7 +21,7 @@ El installer te pregunta qué configurar:
 ## Flujo
 
 ```
-curl | bash
+npx diego31-10/claude-workflow
   ↓
 ¿Configurar CLAUDE.md global? → [y/n]
   ↓
