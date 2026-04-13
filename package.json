@@ -1,7 +1,7 @@
 {
   "name": "@diegos31/claude-workflow",
-  "version": "2.0.0",
-  "description": "Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.",
+  "version": "1.0.0",
+  "description": "Sistema de memoria y workflows para Claude Code.",
   "type": "module",
   "bin": {
     "claude-workflow": "./src/cli.js"
