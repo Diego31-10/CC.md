@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x install.sh)",
+      "Bash(bash -n install.sh)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(bash -n cw.sh)",
+      "Bash(printf:*)",
+      "Bash(bun build:*)",
+      "Bash(powershell -Command \"Remove-Item -Path dist -Recurse -Force; Remove-Item -Path bunfig.toml -Force; Remove-Item -Path src/cli.ts -Force; Write-Host 'Limpieza completada'\")",
+      "Bash(node /c/Users/diego/desktop/claude-workflow/src/cli.js --version)",
+      "Bash(git rm:*)",
+      "Bash(ls -la /c/Users/diego/desktop/claude-workflow/*.sh)",
+      "Bash(npm login:*)",
+      "Bash(npm publish:*)",
+      "Bash(npm adduser:*)",
+      "Bash(git checkout:*)",
+      "Bash(bash -i -c \"git status\")",
+      "Bash(bash:*)",
+      "Bash(git reset:*)"
+    ]
+  }
+}
