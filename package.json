@@ -1,7 +1,7 @@
 {
   "name": "claude-workflow",
   "version": "2.0.0",
-  "description": "Sistema de memoria y workflows para Claude Code",
+  "description": "Sistema de memoria y workflows para Claude Code. Setup interactivo en 2 minutos.",
   "type": "module",
   "bin": {
     "claude-workflow": "./src/cli.js"
@@ -9,7 +9,15 @@
   "scripts": {
     "dev": "node src/cli.js"
   },
-  "keywords": ["claude", "memory", "workflow"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Diego31-10/claude-workflow.git"
+  },
+  "homepage": "https://github.com/Diego31-10/claude-workflow",
+  "bugs": {
+    "url": "https://github.com/Diego31-10/claude-workflow/issues"
+  },
+  "keywords": ["claude", "claude-code", "memory", "workflow", "ai", "development"],
   "author": "Diego31-10",
   "license": "MIT",
   "engines": {
